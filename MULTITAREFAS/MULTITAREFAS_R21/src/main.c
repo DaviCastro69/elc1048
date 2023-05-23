@@ -34,6 +34,7 @@
  */
 void tarefa_1(void);
 void tarefa_2(void);
+void tarefa_nova(void);
 void tarefa_3(void);
 void tarefa_4(void);
 void tarefa_5(void);
@@ -46,6 +47,7 @@ void tarefa_8(void);
  */
 #define TAM_PILHA_1			(TAM_MINIMO_PILHA + 24)
 #define TAM_PILHA_2			(TAM_MINIMO_PILHA + 24)
+#define TAM_PILHA_nova		(TAM_MINIMO_PILHA + 24)
 #define TAM_PILHA_3			(TAM_MINIMO_PILHA + 24)
 #define TAM_PILHA_4			(TAM_MINIMO_PILHA + 24)
 #define TAM_PILHA_5			(TAM_MINIMO_PILHA + 24)
@@ -59,6 +61,7 @@ void tarefa_8(void);
  */
 uint32_t PILHA_TAREFA_1[TAM_PILHA_1];
 uint32_t PILHA_TAREFA_2[TAM_PILHA_2];
+uint32_t PILHA_TAREFA_nova[TAM_PILHA_nova];
 uint32_t PILHA_TAREFA_3[TAM_PILHA_3];
 uint32_t PILHA_TAREFA_4[TAM_PILHA_4];
 uint32_t PILHA_TAREFA_5[TAM_PILHA_5];
@@ -80,6 +83,8 @@ int main(void)
 	CriaTarefa(tarefa_1, "Tarefa 1", PILHA_TAREFA_1, TAM_PILHA_1, 1);
 	
 	CriaTarefa(tarefa_2, "Tarefa 2", PILHA_TAREFA_2, TAM_PILHA_2, 2);
+	
+	CriaTarefa(tarefa_nova, "Tarefa nova", PILHA_TAREFA_nova, TAM_PILHA_nova, 3);
 	
 	/* Cria tarefa ociosa do sistema */
 	CriaTarefa(tarefa_ociosa,"Tarefa ociosa", PILHA_TAREFA_OCIOSA, TAM_PILHA_OCIOSA, 0);
@@ -103,6 +108,7 @@ void tarefa_1(void)
 	for(;;)
 	{
 		a++;
+		TarefaContinua(3);
 		port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE); /* Liga LED. */
 		TarefaContinua(2);
 	
@@ -115,8 +121,20 @@ void tarefa_2(void)
 	for(;;)
 	{
 		b++;
-		TarefaSuspende(2);	
 		port_pin_set_output_level(LED_0_PIN, !LED_0_ACTIVE); 	/* Turn LED off. */
+		TarefaSuspende(2);	
+	}
+}
+
+void tarefa_nova(void)
+{
+	volatile uint16_t c = 0;
+	for(;;)
+	{
+		c++;	
+		port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE); 	/* Turn LED on. */
+		port_pin_set_output_level(LED_0_PIN, !LED_0_ACTIVE); 	/* Turn LED off. */
+		TarefaSuspende(3);
 	}
 }
 
