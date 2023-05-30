@@ -1,0 +1,4 @@
+No método preemptivo, sempre que a tarefa mais prioritária está pronta para ser executada, é feita uma interrupção, e realiza-se a tarefa.
+Dessa forma, sua frequência de execução é respeitada.
+No método cooperativo, é necessário esperar que a tarefa menos prioritária seja encerrada, para que a tarefa mais prioritária seja executada.
+Com isso, ela não é executada no período previsto, o que, dependendo da sua importância, pode levar a erros no sistema.
